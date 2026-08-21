@@ -16,16 +16,32 @@ extension GeoClueLocationAccuracyStatus on GeoClueAccuracyLevel {
 extension GeoCluePosition on GeoClueLocation {
   Position toPosition() {
     return Position(
+      // `accuracy` is required on `GeoClueLocation`, so it is always a
+      // measurement.
       accuracy: accuracy,
+      hasAccuracy: true,
+      // GeoClue reports an unavailable value with a sentinel, and the
+      // `geoclue` package already converts those to `null` (`Altitude` ->
+      // `-double.maxFinite`, `Heading` and `Speed` -> `-1.0`). The `?? 0`
+      // below keeps the reported value unchanged for existing consumers; the
+      // flag records whether anything actually measured it.
       altitude: altitude ?? 0,
-      altitudeAccuracy: 0,
+      hasAltitude: altitude != null,
       heading: heading ?? 0,
+      hasHeading: heading != null,
+      speed: speed ?? 0,
+      hasSpeed: speed != null,
+      // `GeoClueLocation` carries no vertical, heading or speed accuracy at
+      // all, so there is nothing that could have measured these.
+      altitudeAccuracy: 0,
+      hasAltitudeAccuracy: false,
       headingAccuracy: 0,
+      hasHeadingAccuracy: false,
+      speedAccuracy: 0,
+      hasSpeedAccuracy: false,
       latitude: latitude,
       longitude: longitude,
       timestamp: timestamp ?? DateTime.now(),
-      speed: speed ?? 0,
-      speedAccuracy: 0,
     );
   }
 }

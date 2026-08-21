@@ -158,13 +158,17 @@ final dummyLocation = GeoClueLocation(
 
 final dummyPosition = Position(
   accuracy: 1,
+  hasAccuracy: true,
   altitude: 2,
+  hasAltitude: true,
   altitudeAccuracy: 0,
   heading: 3,
+  hasHeading: true,
   headingAccuracy: 0,
   latitude: 4,
   longitude: 5,
   speed: 6,
+  hasSpeed: true,
   speedAccuracy: 0,
   timestamp: DateTime(2022),
 );

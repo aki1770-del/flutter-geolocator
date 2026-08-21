@@ -1,3 +1,7 @@
+## 0.2.7
+
+- Populates the `hasAccuracy`, `hasAltitude`, `hasHeading` and `hasSpeed` flags on `Position` from what GeoClue actually reported, and sets `hasAltitudeAccuracy`, `hasHeadingAccuracy` and `hasSpeedAccuracy` to `false` because `GeoClueLocation` carries no such fields. GeoClue signals an unavailable value with a sentinel and the `geoclue` package already converts those to `null`; that `null` was being replaced with `0`, so an unreported heading was indistinguishable from a measured course of due north. The reported numeric values are unchanged. Requires `geolocator_platform_interface: ^4.3.0`.
+
 ## 0.2.6
 
 - Updates dependency on flutter_lints to version 6.0.0.
